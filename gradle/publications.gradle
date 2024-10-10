@@ -3,23 +3,10 @@ apply plugin: "maven-publish"
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			from components.java
-			if (project.name != 'spring-js-resources') {
-				artifact sourcesJar
-				artifact javadocJar
-			}
-			versionMapping {
-				usage('java-api') {
-					fromResolutionOf('compileClasspath')
-				}
-				usage('java-runtime') {
-					fromResolutionResult()
-				}
-			}
 			pom {
 				afterEvaluate {
-					description = project.description
 					name = project.description
+					description = project.description
 				}
 				url = "https://github.com/spring-projects/spring-webflow"
 				organization {
@@ -28,8 +15,8 @@ publishing {
 				}
 				licenses {
 					license {
-						name = "The Apache Software License, Version 2.0"
-						url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+						name = "Apache License, Version 2.0"
+						url = "https://www.apache.org/licenses/LICENSE-2.0"
 						distribution = "repo"
 					}
 				}
@@ -48,6 +35,14 @@ publishing {
 				issueManagement {
 					system = "GitHub"
 					url = "https://github.com/spring-projects/spring-webflow/issues"
+				}
+			}
+			versionMapping {
+				usage('java-api') {
+					fromResolutionResult()
+				}
+				usage('java-runtime') {
+					fromResolutionResult()
 				}
 			}
 		}

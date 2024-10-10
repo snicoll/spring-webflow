@@ -18,6 +18,7 @@ allprojects {
 	apply plugin: "io.spring.dependency-management"
 	apply plugin: "org.springframework.build.optional-dependencies"
 	apply from: "${rootProject.projectDir}/ide.gradle"
+	apply from: "${rootDir}/gradle/publications.gradle"
 
 	dependencyManagement {
 		imports {
@@ -110,15 +111,18 @@ configure(javaProjects) { javaProject ->
 		from javadoc
 	}
 
-	artifacts {
-		archives sourcesJar
-		archives javadocJar
+	publishing {
+		publications {
+			mavenJava(MavenPublication) {
+				from components.java
+				artifact sourcesJar
+				artifact javadocJar
+			}
+		}
 	}
 }
 
 subprojects { subproject ->
-
-	apply from: "${rootDir}/gradle/publications.gradle"
 
 	java {
 		toolchain {
